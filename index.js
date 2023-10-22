@@ -6,7 +6,7 @@ const {Server} = require('socket.io')
 const app = express() 
 
 const corsOptions = {
-    origin: 'https://socket-io-room-chat-frontend-vx3e.vercel.app/',
+    origin: 'https://socket-io-room-chat-frontend-vx3e.vercel.app',
   };
 
 app.use(cors(corsOptions))
@@ -15,7 +15,7 @@ const httpServer = http.createServer(app)
 
 const io = new Server(httpServer,{
     cors:{
-        origin:'https://socket-io-room-chat-frontend-vx3e.vercel.app/'
+        origin:'https://socket-io-room-chat-frontend-vx3e.vercel.app'
     }
 })
 
