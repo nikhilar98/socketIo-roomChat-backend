@@ -5,13 +5,17 @@ const {Server} = require('socket.io')
 
 const app = express() 
 
-app.use(cors())
+const corsOptions = {
+    origin: 'https://socket-io-room-chat-frontend.vercel.app',
+  };
+
+app.use(cors(corsOptions))
 
 const httpServer = http.createServer(express)
 
 const io = new Server(httpServer,{
     cors:{
-        origin:"*"
+        origin:'https://socket-io-room-chat-frontend.vercel.app'
     }
 })
 
