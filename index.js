@@ -5,11 +5,13 @@ const {Server} = require('socket.io')
 
 const app = express() 
 
+app.use(cors())
+
 const httpServer = http.createServer(express)
 
 const io = new Server(httpServer,{
     cors:{
-        origin:"http://localhost:3000"
+        origin:"https://socket-io-room-chat-frontend.vercel.app/"
     }
 })
 
@@ -21,7 +23,7 @@ io.on('connection',(socket)=>{
     })
 
     socket.on('send-message',(data)=>{
-        const obj={message:data.message,id:socket.id}
+        const obj={message:data.message,id:socket.id,time:new Date().toTimeString().slice(0,8)+','+new Date().toLocaleDateString()}
         io.to(data.room).emit('receive-message',obj)
     })
 })
