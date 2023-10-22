@@ -11,7 +11,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-const httpServer = http.createServer(express)
+const httpServer = http.createServer(app)
 
 const io = new Server(httpServer,{
     cors:{
