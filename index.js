@@ -5,6 +5,8 @@ const {Server} = require('socket.io')
 
 const app = express() 
 
+app.use(cors())
+
 const httpServer = http.createServer(express)
 
 const io = new Server(httpServer,{
