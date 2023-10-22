@@ -11,7 +11,7 @@ const httpServer = http.createServer(express)
 
 const io = new Server(httpServer,{
     cors:{
-        origin:"https://socket-io-room-chat-frontend.vercel.app/"
+        origin:"*"
     }
 })
 
