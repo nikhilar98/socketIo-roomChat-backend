@@ -16,7 +16,7 @@ const httpServer = http.createServer(app)
 const io = new Server(httpServer,{
     cors:{
         origin:'https://socket-io-room-chat-frontend-vx3e.vercel.app' //http://localhost:3000
-    }
+        }
 })
 
 io.on('connection',(socket)=>{
@@ -24,6 +24,20 @@ io.on('connection',(socket)=>{
 
     socket.on('joinroom',(data)=>{
         socket.join(data)
+        const roomClients = io.sockets.adapter.rooms.get(data);
+        if (roomClients) {
+            const numClients = roomClients.size;
+            io.to(data).emit('receive-rooms',numClients)
+        }
+    })
+
+    socket.on('leave-room',(data)=>{
+        socket.leave(data.room)
+        const roomClients = io.sockets.adapter.rooms.get(data.room);
+        if (roomClients) {
+            const numClients = roomClients.size;
+            io.to(data.room).emit('receive-rooms',numClients)
+        }
     })
 
     socket.on('send-message',(data)=>{
