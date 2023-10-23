@@ -44,7 +44,7 @@ io.on('connection',(socket)=>{
         const obj={
             message:data.message,
             id:socket.id,
-            time:new Date().toTimeString().slice(0,8)+','+new Date().toLocaleDateString(),
+            time:new Date().getUTCHours()+5+":"+new Date().getUTCMinutes()+30,
             name:data.name
         }
         io.to(data.room).emit('receive-message',obj)
