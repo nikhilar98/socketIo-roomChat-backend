@@ -2,11 +2,12 @@ const express = require('express')
 const cors = require('cors') 
 const http = require('http')
 const {Server} = require('socket.io')
+const { formatInTimeZone } = require('date-fns-tz')
 
 const app = express() 
 
 const corsOptions = {
-    origin: 'https://socket-io-room-chat-frontend-vx3e.vercel.app', //http://localhost:3000
+    origin: 'http://localhost:3000', //https://socket-io-room-chat-frontend-vx3e.vercel.app
   };
 
 app.use(cors(corsOptions))
@@ -15,7 +16,7 @@ const httpServer = http.createServer(app)
 
 const io = new Server(httpServer,{
     cors:{
-        origin:'https://socket-io-room-chat-frontend-vx3e.vercel.app' //http://localhost:3000
+        origin:'http://localhost:3000' //https://socket-io-room-chat-frontend-vx3e.vercel.app
         }
 })
 
@@ -41,10 +42,12 @@ io.on('connection',(socket)=>{
     })
 
     socket.on('send-message',(data)=>{
+        
+        const zonedDate = formatInTimeZone(new Date(), 'Asia/Kolkata', 'HH:mm')
         const obj={
             message:data.message,
             id:socket.id,
-            time:new Date().getUTCHours()+5+":"+new Date().getUTCMinutes()+30,
+            time:zonedDate,
             name:data.name
         }
         io.to(data.room).emit('receive-message',obj)
