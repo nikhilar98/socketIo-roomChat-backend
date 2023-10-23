@@ -7,7 +7,7 @@ const { formatInTimeZone } = require('date-fns-tz')
 const app = express() 
 
 const corsOptions = {
-    origin: 'http://localhost:3000', //https://socket-io-room-chat-frontend-vx3e.vercel.app
+    origin: 'https://socket-io-room-chat-frontend-vx3e.vercel.app', //http://localhost:3000
   };
 
 app.use(cors(corsOptions))
@@ -16,7 +16,7 @@ const httpServer = http.createServer(app)
 
 const io = new Server(httpServer,{
     cors:{
-        origin:'http://localhost:3000' //https://socket-io-room-chat-frontend-vx3e.vercel.app
+        origin:'https://socket-io-room-chat-frontend-vx3e.vercel.app' //http://localhost:3000
         }
 })
 
